@@ -41,7 +41,7 @@ type (
 	}
 )
 
-// Test for type constants.
+// TestTypeConstants tests for type constants.
 func TestTypeConstants(t *testing.T) {
 	if TypeJSON != "json" {
 		t.Errorf("Expected TypeJSON -> json | but got %s", TypeJSON)
@@ -76,7 +76,7 @@ func TestTypeConstants(t *testing.T) {
 	}
 }
 
-// Test for Types map.
+// TestTypesMap tests for Types map.
 func TestTypesMap(t *testing.T) {
 	if Types[TypeJSON] != "application/json" {
 		t.Errorf(`Expected Types["json"] -> "application/json" | but got %s`, Types[TypeJSON])
@@ -111,7 +111,7 @@ func TestTypesMap(t *testing.T) {
 	}
 }
 
-// Test for changeMapToURLValues
+// TestChangeMapToURLValues tests for changeMapToURLValues
 func TestChangeMapToURLValues(t *testing.T) {
 
 	data := map[string]interface{}{
@@ -205,7 +205,7 @@ func TestChangeMapToURLValues(t *testing.T) {
 	}
 }
 
-// Test for Make request
+// TestMakeRequest tests for Make request
 func TestMakeRequest(t *testing.T) {
 	var err error
 	var cases = []struct {
@@ -236,7 +236,7 @@ func TestMakeRequest(t *testing.T) {
 	}
 }
 
-// testing for Get method
+// TestGet: testing for Get method
 func TestGet(t *testing.T) {
 	const case1_empty = "/"
 	const case2_set_header = "/set_header"
@@ -271,7 +271,7 @@ func TestGet(t *testing.T) {
 		End()
 }
 
-// testing for Get method.. but clone our base.
+// TestGetWithClone: testing for Get method.. but clone our base.
 func TestGetWithClone(t *testing.T) {
 	const case1_empty = "/"
 	const case2_set_header = "/set_header"
@@ -306,7 +306,7 @@ func TestGetWithClone(t *testing.T) {
 		End()
 }
 
-// testing for Get method.. but clone our base.
+// TestGetWithCloneRequestAfterMake: testing for Get method.. but clone our base.
 func TestGetWithCloneRequestAfterMake(t *testing.T) {
 	const case1_empty = "/"
 	const case2_set_header = "/set_header"
@@ -342,7 +342,7 @@ func TestGetWithCloneRequestAfterMake(t *testing.T) {
 	req2.End()
 }
 
-// testing for Get method.. but clone our base.
+// TestGetWithCloneWithHeadersAndQuery: testing for Get method.. but clone our base.
 func TestGetWithCloneWithHeadersAndQuery(t *testing.T) {
 	const case1_empty = "/"
 	const case2_set_header = "/set_header"
@@ -423,7 +423,7 @@ func TestGetWithCloneWithHeadersAndQuery(t *testing.T) {
 	req5.End()
 }
 
-// testing for Get method.. but clone our base.
+// TestConcurrently: testing for Get method.. but clone our base.
 func TestConcurrently(t *testing.T) {
 	const case1_empty = "/"
 	const case2_set_header = "/set_header"
@@ -541,7 +541,7 @@ func TestConcurrently(t *testing.T) {
 	waitForCompletion.Wait()
 }
 
-// testing for Get method with retry option
+// TestRetryGet: testing for Get method with retry option
 func TestRetryGet(t *testing.T) {
 	const (
 		case1_empty                         = "/"
@@ -607,7 +607,7 @@ func TestRetryGet(t *testing.T) {
 	}
 }
 
-// testing for Options method
+// TestOptions: testing for Options method
 func TestOptions(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// check method is OPTIONS before going to check other features
@@ -625,7 +625,7 @@ func TestOptions(t *testing.T) {
 		End()
 }
 
-// testing that resp.Body is reusable
+// TestResetBody: testing that resp.Body is reusable
 func TestResetBody(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Just some text"))
@@ -640,7 +640,7 @@ func TestResetBody(t *testing.T) {
 	}
 }
 
-// testing for Param method
+// TestParam: testing for Param method
 func TestParam(t *testing.T) {
 	paramCode := "123456"
 	paramFields := "f1;f2;f3"
@@ -1005,7 +1005,7 @@ func TestPost(t *testing.T) {
 		End()
 }
 
-// clone the super agent instead of calling New each time
+// TestPostCloneSuperAgent: clone the super agent instead of calling New each time
 func TestPostCloneSuperAgent(t *testing.T) {
 	ts := testPostServer(t)
 	defer ts.Close()
@@ -1184,7 +1184,7 @@ func checkFile(t *testing.T, fileheader *multipart.FileHeader) {
 	}
 }
 
-// testing for POST-Request of Type multipart
+// TestMultipartRequest: testing for POST-Request of Type multipart
 func TestMultipartRequest(t *testing.T) {
 
 	const case0_send_not_supported_filetype = "/send_not_supported_filetype"
@@ -1738,7 +1738,7 @@ func TestMultipartRequest(t *testing.T) {
 		End()
 }
 
-// testing for Patch method
+// TestPatch: testing for Patch method
 func TestPatch(t *testing.T) {
 	const case1_empty = "/"
 	const case2_set_header = "/set_header"
@@ -2209,7 +2209,7 @@ func TestErrorTypeWrongKey(t *testing.T) {
 	}
 }
 
-// expect the first clone to result in an erro
+// TestErrorThenReUseBase: expect the first clone to result in an erro
 // the second clone should succeed
 func TestErrorThenReUseBase(t *testing.T) {
 	//defer afterTest(t)
@@ -2475,7 +2475,7 @@ func TestContentTypeInference(t *testing.T) {
 	}
 }
 
-// Test for request can accept multiple types.
+// TestAcceptMultipleTypes tests for request can accept multiple types.
 func TestAcceptMultipleTypes(t *testing.T) {
 	text := `hello world \r\n I am GoRequest`
 

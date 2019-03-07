@@ -95,7 +95,7 @@ type SuperAgent struct {
 
 var DisableTransportSwap = false
 
-// Used to create a new SuperAgent object.
+// New: Used to create a new SuperAgent object.
 func New() *SuperAgent {
 	cookiejarOptions := cookiejar.Options{
 		PublicSuffixList: publicsuffix.List,
@@ -200,7 +200,7 @@ func copyRetryable(old superAgentRetryable) superAgentRetryable {
 	return newRetryable
 }
 
-// Returns a copy of this superagent. Useful if you want to reuse the client/settings
+// Clone returns a copy of this superagent. Useful if you want to reuse the client/settings
 // concurrently.
 // Note: This does a shallow copy of the parent. So you will need to be
 // careful of Data provided
@@ -238,19 +238,19 @@ func (s *SuperAgent) Clone() *SuperAgent {
 	return clone
 }
 
-// Enable the debug mode which logs request/response detail
+// SetDebug: Enable the debug mode which logs request/response detail
 func (s *SuperAgent) SetDebug(enable bool) *SuperAgent {
 	s.Debug = enable
 	return s
 }
 
-// Enable the curlcommand mode which display a CURL command line
+// SetCurlCommand: Enable the curlcommand mode which display a CURL command line
 func (s *SuperAgent) SetCurlCommand(enable bool) *SuperAgent {
 	s.CurlCommand = enable
 	return s
 }
 
-// Enable the DoNotClear mode for not clearing super agent and reuse for the next request
+// SetDoNotClearSuperAgent: Enable the DoNotClear mode for not clearing super agent and reuse for the next request
 func (s *SuperAgent) SetDoNotClearSuperAgent(enable bool) *SuperAgent {
 	s.DoNotClearSuperAgent = enable
 	return s
@@ -261,7 +261,7 @@ func (s *SuperAgent) SetLogger(logger Logger) *SuperAgent {
 	return s
 }
 
-// Clear SuperAgent data for another new request.
+// ClearSuperAgent clears SuperAgent data for another new request.
 func (s *SuperAgent) ClearSuperAgent() {
 	if s.DoNotClearSuperAgent {
 		return
@@ -282,7 +282,7 @@ func (s *SuperAgent) ClearSuperAgent() {
 	s.Errors = nil
 }
 
-// Just a wrapper to initialize SuperAgent instance by method string
+// CustomMethod: Just a wrapper to initialize SuperAgent instance by method string
 func (s *SuperAgent) CustomMethod(method, targetUrl string) *SuperAgent {
 	switch method {
 	case POST:
@@ -395,7 +395,7 @@ func (s *SuperAgent) AppendHeader(param string, value string) *SuperAgent {
 //          3 max attempt.
 //          And StatusBadRequest and StatusInternalServerError as RetryableStatus
 
-//    gorequest.New().
+// Retry: gorequest.New().
 //      Post("/gamelist").
 //      Retry(3, 5 * time.seconds, http.StatusBadRequest, http.StatusInternalServerError).
 //      End()
@@ -589,7 +589,7 @@ func (s *SuperAgent) queryMap(content interface{}) *SuperAgent {
 	return s.queryStruct(content)
 }
 
-// As Go conventions accepts ; as a synonym for &. (https://github.com/golang/go/issues/2210)
+// Param: As Go conventions accepts ; as a synonym for &. (https://github.com/golang/go/issues/2210)
 // Thus, Query won't accept ; in a querystring if we provide something like fields=f1;f2;f3
 // This Param is then created as an alternative method to solve this.
 func (s *SuperAgent) Param(key string, value string) *SuperAgent {
@@ -597,7 +597,7 @@ func (s *SuperAgent) Param(key string, value string) *SuperAgent {
 	return s
 }
 
-// Set TLSClientConfig for underling Transport.
+// TLSClientConfig: Set TLSClientConfig for underling Transport.
 // One example is you can use it to disable security check (https):
 //
 //      gorequest.New().TLSClientConfig(&tls.Config{ InsecureSkipVerify: true}).
